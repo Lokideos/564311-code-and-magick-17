@@ -27,6 +27,9 @@ var renderHistogramElement = function (ctx, maxScore, counter, names, times) {
   var histogramElementX = CLOUD_START_POSITION_X / 2 + barGapLengthX * (counter + 1);
   var barWidth = barGapLengthX * 0.7;
   var currentBarHeight = times[counter] / maxScore * HISTOGRAM_ELEMENT_MAX_HEIGHT;
+  var currentBarStartY = histogramElementX + barWidth / 2 - barWidth / 4;
+
+  // console.log(times[counter]);
 
   if (names[counter] === 'Вы') {
     ctx.fillStyle = 'rgba(255, 0, 0, 1)';
@@ -34,9 +37,27 @@ var renderHistogramElement = function (ctx, maxScore, counter, names, times) {
     ctx.fillStyle = 'rgba(0, 0, 255, ' + Math.random() + ')';
   }
 
-  ctx.fillRect(histogramElementX, 110 + HISTOGRAM_ELEMENT_MAX_HEIGHT - currentBarHeight, barWidth, currentBarHeight);
+  ctx.fillRect(
+      histogramElementX, 110 + HISTOGRAM_ELEMENT_MAX_HEIGHT - currentBarHeight, barWidth, currentBarHeight
+  );
 
-  renderText(ctx, names[counter], histogramElementX + barWidth / 2 - barWidth / 4, 290, FONT_PROPERTIES, FONT_COLOR);
+  renderText(
+      ctx,
+      names[counter],
+      currentBarStartY,
+      290,
+      FONT_PROPERTIES,
+      FONT_COLOR
+  );
+
+  renderText(
+      ctx,
+      Math.floor(times[counter]),
+      currentBarStartY,
+      110 + HISTOGRAM_ELEMENT_MAX_HEIGHT - currentBarHeight - 10,
+      FONT_PROPERTIES,
+      FONT_COLOR
+  );
 };
 
 window.renderStatistics = function (ctx, names, times) {
