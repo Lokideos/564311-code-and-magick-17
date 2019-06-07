@@ -5,6 +5,7 @@ var CLOUD_HEIGHT = 270;
 var CLOUD_START_POSITION_X = 100;
 var HISTOGRAM_PADDING = 20;
 var HISTOGRAM_ELEMENT_MAX_HEIGHT = 150;
+var HISTOGRAM_START_POSITION_Y = 120;
 
 var CLOUD_COLOR = '#fff';
 var CLOUD_SHADOW_COLOR = 'rgba(0, 0, 0, 0.3)';
@@ -29,8 +30,6 @@ var renderHistogramElement = function (ctx, maxScore, counter, names, times) {
   var currentBarHeight = times[counter] / maxScore * HISTOGRAM_ELEMENT_MAX_HEIGHT;
   var currentBarStartY = histogramElementX + barWidth / 2 - barWidth / 4;
 
-  // console.log(times[counter]);
-
   if (names[counter] === 'Вы') {
     ctx.fillStyle = 'rgba(255, 0, 0, 1)';
   } else {
@@ -38,7 +37,9 @@ var renderHistogramElement = function (ctx, maxScore, counter, names, times) {
   }
 
   ctx.fillRect(
-      histogramElementX, 110 + HISTOGRAM_ELEMENT_MAX_HEIGHT - currentBarHeight, barWidth, currentBarHeight
+      histogramElementX, HISTOGRAM_START_POSITION_Y + HISTOGRAM_ELEMENT_MAX_HEIGHT - currentBarHeight,
+      barWidth,
+      currentBarHeight
   );
 
   renderText(
@@ -54,7 +55,7 @@ var renderHistogramElement = function (ctx, maxScore, counter, names, times) {
       ctx,
       Math.floor(times[counter]),
       currentBarStartY,
-      110 + HISTOGRAM_ELEMENT_MAX_HEIGHT - currentBarHeight - 10,
+      HISTOGRAM_START_POSITION_Y + HISTOGRAM_ELEMENT_MAX_HEIGHT - currentBarHeight - 10,
       FONT_PROPERTIES,
       FONT_COLOR
   );
