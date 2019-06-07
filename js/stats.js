@@ -6,6 +6,7 @@ var CLOUD_START_POSITION_X = 100;
 var HISTOGRAM_PADDING = 20;
 var HISTOGRAM_ELEMENT_MAX_HEIGHT = 150;
 var HISTOGRAM_START_POSITION_Y = 120;
+var PLAYER_COLOR = 'rgba(255, 0, 0, 1)';
 
 var CLOUD_COLOR = '#fff';
 var CLOUD_SHADOW_COLOR = 'rgba(0, 0, 0, 0.3)';
@@ -31,7 +32,7 @@ var renderHistogramElement = function (ctx, maxScore, counter, names, times) {
   var currentBarStartY = histogramElementX + barWidth / 2 - barWidth / 4;
 
   if (names[counter] === 'Вы') {
-    ctx.fillStyle = 'rgba(255, 0, 0, 1)';
+    ctx.fillStyle = PLAYER_COLOR;
   } else {
     ctx.fillStyle = 'rgba(0, 0, 255, ' + Math.random() + ')';
   }
