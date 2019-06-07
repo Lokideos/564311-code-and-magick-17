@@ -28,6 +28,12 @@ var renderHistogramElement = function (ctx, maxScore, counter, names, times) {
   var barWidth = barGapLengthX * 0.7;
   var currentBarHeight = times[counter] / maxScore * HISTOGRAM_ELEMENT_MAX_HEIGHT;
 
+  if (names[counter] === 'Вы') {
+    ctx.fillStyle = 'rgba(255, 0, 0, 1)';
+  } else {
+    ctx.fillStyle = 'rgba(0, 0, 255, ' + Math.random() + ')';
+  }
+
   ctx.fillRect(histogramElementX, 110 + HISTOGRAM_ELEMENT_MAX_HEIGHT - currentBarHeight, barWidth, currentBarHeight);
 
   renderText(ctx, names[counter], histogramElementX + barWidth / 2 - barWidth / 4, 290, FONT_PROPERTIES, FONT_COLOR);
