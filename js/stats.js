@@ -4,6 +4,7 @@ var CLOUD_WIDTH = 420;
 var CLOUD_HEIGHT = 270;
 var CLOUD_START_POSITION_X = 100;
 var HISTOGRAM_PADDING = 20;
+var HISTOGRAM_ELEMENT_MAX_HEIGHT = 150;
 
 var CLOUD_COLOR = '#fff';
 var CLOUD_SHADOW_COLOR = 'rgba(0, 0, 0, 0.3)';
@@ -21,24 +22,33 @@ var renderText = function (ctx, text, x, y, fontSettings, color) {
   ctx.fillText(text, x, y);
 };
 
-// var renderHistogramElement = function (ctx) {
+var renderHistogramElement = function (ctx, maxScore, counter, names, times) {
+  var barGapLengthX = (CLOUD_WIDTH - HISTOGRAM_PADDING * 2) / names.length;
+  var histogramElementX = CLOUD_START_POSITION_X / 2 + barGapLengthX * (counter + 1);
+  var barWidth = barGapLengthX * 0.7;
+  var currentBarHeight = times[counter] / maxScore * HISTOGRAM_ELEMENT_MAX_HEIGHT;
 
-// };
+  ctx.fillRect(histogramElementX, 110 + HISTOGRAM_ELEMENT_MAX_HEIGHT - currentBarHeight, barWidth, currentBarHeight);
 
-window.renderStatistics = function (ctx, names) {
+  renderText(ctx, names[counter], histogramElementX + barWidth / 2 - barWidth / 4, 290, FONT_PROPERTIES, FONT_COLOR);
+};
+
+window.renderStatistics = function (ctx, names, times) {
   renderCloud(ctx, 110, 60, CLOUD_SHADOW_COLOR);
   renderCloud(ctx, CLOUD_START_POSITION_X, 50, CLOUD_COLOR);
 
   renderText(ctx, 'Ура вы победили!', 110, 70, FONT_PROPERTIES, FONT_COLOR);
   renderText(ctx, 'Список результатов:', 110, 90, FONT_PROPERTIES, FONT_COLOR);
 
-  for (var i = 1; i <= names.length; i++) {
-    var barGapLengthX = (CLOUD_WIDTH - HISTOGRAM_PADDING * 2) / names.length;
-    var histogramElementX = CLOUD_START_POSITION_X / 2 + barGapLengthX * i;
-    var barWidth = barGapLengthX * 0.7;
-    this.console.log(barGapLengthX * i);
-    ctx.fillRect(histogramElementX, 110, barWidth, 150);
+  var maxScore = times[0];
 
-    renderText(ctx, names[i - 1], histogramElementX + barWidth / 2 - barWidth / 4, 290, FONT_PROPERTIES, FONT_COLOR);
+  for (var j = 1; j < times.length; j++) {
+    if (maxScore < times[j]) {
+      maxScore = times[j];
+    }
+  }
+
+  for (var i = 0; i < names.length; i++) {
+    renderHistogramElement(ctx, maxScore, i, names, times);
   }
 };
