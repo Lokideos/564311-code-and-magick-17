@@ -46,12 +46,9 @@ var getTemplate = function (templateId, fragmentSelector) {
 
 var renderWizards = function (canvasSelector, charactersData, fragment) {
   var canvas = document.querySelector(canvasSelector);
-  var length = charactersData.length;
-
-  for (var i = 0; i < length; i++) {
-    fragment.appendChild(generateCharacterCard(charactersData));
-  }
-
+  charactersData.forEach(function (characterData) {
+    fragment.appendChild(generateCharacterCard(characterData));
+  });
   canvas.appendChild(fragment);
 };
 
@@ -78,15 +75,15 @@ var generateCharactersArray = function (length) {
   for (var i = 0; i < length; i++) {
     characters.push(generateCharacter(fullNames, COAT_COLORS, EYE_COLORS));
   }
+
   return characters;
 };
 
-var generateCharacterCard = function (charactersArray) {
-  var character = charactersArray.pop();
+var generateCharacterCard = function (characterData) {
   var card = getTemplate('#similar-wizard-template', '.setup-similar-item').cloneNode(true);
-  card.querySelector('.setup-similar-label').textContent = character.name;
-  card.querySelector('.wizard-coat').style.fill = character.coatColor;
-  card.querySelector('.wizard-eyes').style.fill = character.eyesColor;
+  card.querySelector('.setup-similar-label').textContent = characterData.name;
+  card.querySelector('.wizard-coat').style.fill = characterData.coatColor;
+  card.querySelector('.wizard-eyes').style.fill = characterData.eyesColor;
 
   return card;
 };
