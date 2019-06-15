@@ -104,11 +104,11 @@ var generateCharacterCard = function (characterData, template, templateFragment,
 
 // Runtime
 var setupMenuInitialize = function () {
-  showHiddenElement(setupSection, hiddenClassSelector);
-  showHiddenElement(similarWizardsSection, hiddenClassSelector);
   var charsArray = generateCharactersArray(4);
   var fragment = document.createDocumentFragment();
   renderWizards(canvasSelector, charsArray, fragment);
+  showHiddenElement(setupSection, hiddenClassSelector);
+  showHiddenElement(similarWizardsSection, hiddenClassSelector);
 };
 
 setupMenuInitialize();
