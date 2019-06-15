@@ -25,8 +25,8 @@ var HIDING_CLASS = 'hidden';
 // Support
 var shuffle = function (array) {
   var changedArray = array;
-  var i = changedArray.length + 1;
-  for (i = 0; i < changedArray.length; i++) {
+
+  for (var i = 0; i < changedArray.length; i++) {
     var randomIndex = Math.floor((Math.random() * i));
     var element = changedArray[randomIndex];
 
