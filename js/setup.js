@@ -18,9 +18,8 @@ var EYE_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 var shuffle = function (array) {
   var l = array.length + 1;
   while (l--) {
-    // eslint-disable-next-line one-var
-    var r = ~~(Math.random() * l),
-      o = array[r];
+    var r = ~~(Math.random() * l);
+    var o = array[r];
 
     array[r] = array[0];
     array[0] = o;
@@ -36,6 +35,12 @@ var pickRandomIndex = function (array) {
 // DOM manipulation
 var showCharacterSetup = function (selector) {
   selector.classList.remove('hidden');
+};
+
+var getTemplate = function (templateId, fragmentSelector) {
+  return document.querySelector(templateId)
+    .content
+    .querySelector(fragmentSelector);
 };
 
 // Generators
@@ -64,5 +69,16 @@ var generateCharactersArray = function (length) {
   return arr;
 };
 
+var generateCharacterCard = function (charactersArray) {
+  var character = charactersArray.pop();
+  var card = getTemplate('#similar-wizard-template', '.setup-similar-item');
+  card.querySelector('.setup-similar-label').textContent = character.name;
+  card.querySelector('.wizard-coat').style.fill = character.coatColor;
+  card.querySelector('.wizard-eyes').style.fill = character.eyesColor;
+
+  return card;
+};
+
+// I have no idea how should I name this section
 showCharacterSetup(setupSelector);
-generateCharactersArray(4);
+generateCharacterCard(generateCharactersArray(4));
