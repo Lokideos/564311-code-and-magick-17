@@ -68,10 +68,10 @@ var renderWizards = function (canvasPlacementSelector, charactersData, fragment)
 };
 
 // Generators
-var generateFullNames = function (firstNamesArray, lastNamesArray) {
-  var shuffledLastNames = shuffle(lastNamesArray);
+var generateFullNames = function (firstNames, lastNames) {
+  var shuffledLastNames = shuffle(lastNames);
 
-  return shuffle(firstNamesArray).map(function (firstName) {
+  return shuffle(firstNames).map(function (firstName) {
     return firstName + ' ' + shuffledLastNames.pop();
   });
 };
@@ -105,9 +105,9 @@ var generateCharacterCard = function (characterData, template, templateFragment,
 
 // Runtime
 var setupMenuInitialize = function () {
-  var charsArray = generateCharactersArray(4);
+  var characters = generateCharactersArray(4);
   var fragment = document.createDocumentFragment();
-  renderWizards(canvasSelector, charsArray, fragment);
+  renderWizards(canvasSelector, characters, fragment);
   showElement(setupSection);
   showElement(similarWizardsSection);
 };
