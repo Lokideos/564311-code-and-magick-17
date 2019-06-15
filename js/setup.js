@@ -3,7 +3,6 @@
 // Initialization
 var setupSection = document.querySelector('.setup');
 var similarWizardsSection = document.querySelector('.setup-similar');
-var hiddenClassSelector = 'hidden';
 var canvasSelector = '.setup-similar-list';
 var templateSelector = '#similar-wizard-template';
 var templateFragmentSelector = '.setup-similar-item';
@@ -21,6 +20,7 @@ var COAT_COLORS = [
   'rgb(0, 0, 0)'
 ];
 var EYE_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
+var HIDING_CLASS = 'hidden';
 
 // Support
 var shuffle = function (array) {
@@ -42,8 +42,8 @@ var pickRandomIndex = function (array) {
 };
 
 // DOM manipulation
-var showHiddenElement = function (selector, hidingClass) {
-  selector.classList.remove(hidingClass);
+var showElement = function (element) {
+  element.classList.remove(HIDING_CLASS);
 };
 
 var getTemplate = function (templateId, fragmentSelector) {
@@ -108,8 +108,8 @@ var setupMenuInitialize = function () {
   var charsArray = generateCharactersArray(4);
   var fragment = document.createDocumentFragment();
   renderWizards(canvasSelector, charsArray, fragment);
-  showHiddenElement(setupSection, hiddenClassSelector);
-  showHiddenElement(similarWizardsSection, hiddenClassSelector);
+  showElement(setupSection);
+  showElement(similarWizardsSection);
 };
 
 setupMenuInitialize();
