@@ -1,8 +1,15 @@
 'use strict';
 
 // Initialization
-var setupSelector = document.querySelector('.setup');
-var similarWizards = document.querySelector('.setup-similar');
+var setupSection = document.querySelector('.setup');
+var similarWizardsSection = document.querySelector('.setup-similar');
+var hiddenClassSelector = 'hidden';
+var canvasSelector = '.setup-similar-list';
+var templateSelector = '#similar-wizard-template';
+var templateFragmentSelector = '.setup-similar-item';
+var wizardNameSelector = '.setup-similar-label';
+var wizardCoatSelector = '.wizard-coat';
+var wizardEyesSelector = '.wizard-eyes';
 var FIRST_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
 var LAST_NAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
 var COAT_COLORS = [
@@ -34,8 +41,8 @@ var pickRandomIndex = function (array) {
 };
 
 // DOM manipulation
-var showHiddenElement = function (selector) {
-  selector.classList.remove('hidden');
+var showHiddenElement = function (selector, hidingClass) {
+  selector.classList.remove(hidingClass);
 };
 
 var getTemplate = function (templateId, fragmentSelector) {
@@ -44,10 +51,17 @@ var getTemplate = function (templateId, fragmentSelector) {
     .querySelector(fragmentSelector);
 };
 
-var renderWizards = function (canvasSelector, charactersData, fragment) {
-  var canvas = document.querySelector(canvasSelector);
+var renderWizards = function (canvasPlacementSelector, charactersData, fragment) {
+  var canvas = document.querySelector(canvasPlacementSelector);
   charactersData.forEach(function (characterData) {
-    fragment.appendChild(generateCharacterCard(characterData));
+    fragment.appendChild(generateCharacterCard(
+        characterData,
+        templateSelector,
+        templateFragmentSelector,
+        wizardNameSelector,
+        wizardCoatSelector,
+        wizardEyesSelector
+    ));
   });
   canvas.appendChild(fragment);
 };
@@ -79,22 +93,22 @@ var generateCharactersArray = function (length) {
   return characters;
 };
 
-var generateCharacterCard = function (characterData) {
-  var card = getTemplate('#similar-wizard-template', '.setup-similar-item').cloneNode(true);
-  card.querySelector('.setup-similar-label').textContent = characterData.name;
-  card.querySelector('.wizard-coat').style.fill = characterData.coatColor;
-  card.querySelector('.wizard-eyes').style.fill = characterData.eyesColor;
+var generateCharacterCard = function (characterData, template, templateFragment, name, coat, eyes) {
+  var card = getTemplate(template, templateFragment).cloneNode(true);
+  card.querySelector(name).textContent = characterData.name;
+  card.querySelector(coat).style.fill = characterData.coatColor;
+  card.querySelector(eyes).style.fill = characterData.eyesColor;
 
   return card;
 };
 
 // Runtime
 var setupMenuInitialize = function () {
-  showHiddenElement(setupSelector);
-  showHiddenElement(similarWizards);
+  showHiddenElement(setupSection, hiddenClassSelector);
+  showHiddenElement(similarWizardsSection, hiddenClassSelector);
   var charsArray = generateCharactersArray(4);
   var fragment = document.createDocumentFragment();
-  renderWizards('.setup-similar-list', charsArray, fragment);
+  renderWizards(canvasSelector, charsArray, fragment);
 };
 
 setupMenuInitialize();
