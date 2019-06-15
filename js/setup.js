@@ -73,12 +73,12 @@ var generateCharacter = function (names, coatColors, eyeColors) {
 };
 
 var generateCharactersArray = function (length) {
-  var arr = [];
+  var characters = [];
   var fullNames = generateFullNames(FIRST_NAMES, LAST_NAMES);
   for (var i = 0; i < length; i++) {
-    arr.push(generateCharacter(fullNames, COAT_COLORS, EYE_COLORS));
+    characters.push(generateCharacter(fullNames, COAT_COLORS, EYE_COLORS));
   }
-  return arr;
+  return characters;
 };
 
 var generateCharacterCard = function (charactersArray) {
@@ -91,8 +91,13 @@ var generateCharacterCard = function (charactersArray) {
   return card;
 };
 
-showHiddenElement(setupSelector);
-showHiddenElement(similarWizards);
-var charsArray = generateCharactersArray(4);
-var fragment = document.createDocumentFragment();
-renderWizards('.setup-similar-list', charsArray, fragment);
+// Runtime
+var setupMenuInitialize = function () {
+  showHiddenElement(setupSelector);
+  showHiddenElement(similarWizards);
+  var charsArray = generateCharactersArray(4);
+  var fragment = document.createDocumentFragment();
+  renderWizards('.setup-similar-list', charsArray, fragment);
+};
+
+setupMenuInitialize();
