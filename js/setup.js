@@ -24,16 +24,17 @@ var EYE_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 
 // Support
 var shuffle = function (array) {
-  var l = array.length + 1;
-  while (l--) {
-    var r = ~~(Math.random() * l);
-    var o = array[r];
+  var changedArray = array;
+  var i = changedArray.length + 1;
+  while (i--) {
+    var randomIndex = Math.floor((Math.random() * i));
+    var element = changedArray[randomIndex];
 
-    array[r] = array[0];
-    array[0] = o;
+    changedArray[randomIndex] = changedArray[i];
+    changedArray[i] = element;
   }
 
-  return array;
+  return changedArray;
 };
 
 var pickRandomIndex = function (array) {
