@@ -69,11 +69,11 @@ var renderWizards = function (canvasPlacementSelector, charactersData, fragment)
 
 // Generators
 var generateFullNames = function (firstNamesArray, lastNamesArray) {
-  lastNamesArray = shuffle(lastNamesArray);
-  return shuffle(firstNamesArray.map(function (firstName) {
-    return firstName + ' ' + lastNamesArray.pop();
-  }
-  ));
+  var shuffledLastNames = shuffle(lastNamesArray);
+
+  return shuffle(firstNamesArray).map(function (firstName) {
+    return firstName + ' ' + shuffledLastNames.pop();
+  });
 };
 
 var generateCharacter = function (names, coatColors, eyeColors) {
