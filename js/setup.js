@@ -78,7 +78,7 @@ var generateFullNames = function (firstNamesArray, lastNamesArray) {
 
 var generateCharacter = function (names, coatColors, eyeColors) {
   return {
-    name: names[pickRandomIndex(names)],
+    name: shuffle(names).pop(),
     coatColor: coatColors[pickRandomIndex(coatColors)],
     eyesColor: eyeColors[pickRandomIndex(eyeColors)]
   };
