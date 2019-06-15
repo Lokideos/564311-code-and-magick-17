@@ -2,6 +2,7 @@
 
 // Initialization
 var setupSelector = document.querySelector('.setup');
+var similarWizards = document.querySelector('.setup-similar');
 var FIRST_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
 var LAST_NAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
 var COAT_COLORS = [
@@ -33,7 +34,7 @@ var pickRandomIndex = function (array) {
 };
 
 // DOM manipulation
-var showCharacterSetup = function (selector) {
+var showHiddenElement = function (selector) {
   selector.classList.remove('hidden');
 };
 
@@ -41,6 +42,17 @@ var getTemplate = function (templateId, fragmentSelector) {
   return document.querySelector(templateId)
     .content
     .querySelector(fragmentSelector);
+};
+
+var renderWizards = function (canvasSelector, charactersData, fragment) {
+  var canvas = document.querySelector(canvasSelector);
+  var length = charactersData.length;
+
+  for (var i = 0; i < length; i++) {
+    fragment.appendChild(generateCharacterCard(charactersData));
+  }
+
+  canvas.appendChild(fragment);
 };
 
 // Generators
@@ -71,7 +83,7 @@ var generateCharactersArray = function (length) {
 
 var generateCharacterCard = function (charactersArray) {
   var character = charactersArray.pop();
-  var card = getTemplate('#similar-wizard-template', '.setup-similar-item');
+  var card = getTemplate('#similar-wizard-template', '.setup-similar-item').cloneNode(true);
   card.querySelector('.setup-similar-label').textContent = character.name;
   card.querySelector('.wizard-coat').style.fill = character.coatColor;
   card.querySelector('.wizard-eyes').style.fill = character.eyesColor;
@@ -79,6 +91,8 @@ var generateCharacterCard = function (charactersArray) {
   return card;
 };
 
-// I have no idea how should I name this section
-showCharacterSetup(setupSelector);
-generateCharacterCard(generateCharactersArray(4));
+showHiddenElement(setupSelector);
+showHiddenElement(similarWizards);
+var charsArray = generateCharactersArray(4);
+var fragment = document.createDocumentFragment();
+renderWizards('.setup-similar-list', charsArray, fragment);
