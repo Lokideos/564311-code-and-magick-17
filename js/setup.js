@@ -81,12 +81,12 @@ var onSetupCloseEnterPress = function (evt) {
 };
 
 var onSetupSubmitClick = function () {
-  setupSubmitForm.submit();
+  setupSubmitButton.submit();
 };
 
 var onSetupSubmitPress = function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
-    setupSubmitForm.submit();
+    setupSubmitButton.submit();
   }
 };
 
