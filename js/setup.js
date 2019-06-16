@@ -36,6 +36,21 @@ var EYE_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 var HIDING_CLASS = 'hidden';
 
 // Event handler functions
+var onSetupIconClick = function () {
+  showElement(setupSection);
+  showElement(similarWizardsSection);
+
+  document.addEventListener('keydown', onSetupEscPress);
+
+};
+
+var onSetupCloseClick = function () {
+  hideElement(setupSection);
+  hideElement(similarWizardsSection);
+
+  document.removeEventListener('keydown', onSetupEscPress);
+};
+
 var onSetupEscPress = function (evt) {
   if (evt.keyCode === ESC_KEYCODE && document.activeElement !== setupUserName) {
     hideElement(setupSection);
@@ -51,6 +66,15 @@ var onSetupEnterPress = function (evt) {
     showElement(similarWizardsSection);
 
     document.addEventListener('keydown', onSetupEscPress);
+  }
+};
+
+var onSetupCloseEnterPress = function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    hideElement(setupSection);
+    hideElement(similarWizardsSection);
+
+    document.removeEventListener('keydown', onSetupEscPress);
   }
 };
 
@@ -140,21 +164,10 @@ var generateCharacterCard = function (characterData, template, templateFragment,
 };
 
 // Event handlers
-setupOpenButton.addEventListener('click', function () {
-  showElement(setupSection);
-  showElement(similarWizardsSection);
-
-  document.addEventListener('keydown', onSetupEscPress);
-});
-
-setupCloseButton.addEventListener('click', function () {
-  hideElement(setupSection);
-  hideElement(similarWizardsSection);
-
-  document.removeEventListener('keydown', onSetupEscPress);
-});
-
+setupOpenButton.addEventListener('click', onSetupIconClick);
+setupCloseButton.addEventListener('click', onSetupCloseClick);
 setupOpenButtonIcon.addEventListener('keydown', onSetupEnterPress);
+setupCloseButton.addEventListener('keydown', onSetupCloseEnterPress);
 
 // Runtime
 var setupMenuInitialize = function () {
