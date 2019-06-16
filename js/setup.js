@@ -14,6 +14,7 @@ var setupOpenButtonIcon = setupOpenButton.querySelector('.setup-open-icon');
 var setupUserName = setupSection.querySelector('.setup-user-name');
 var setupSubmitButton = setupSection.querySelector('.setup-submit');
 var setupPlayerWizard = setupSection.querySelector('.setup-player');
+var setupPlayerWizardForm = setupSection.querySelector('.setup-wizard-form');
 var playerWizardAppearance = setupSection.querySelector('.setup-wizard-appearance');
 var playerWizardCoat = playerWizardAppearance.querySelector('.wizard-coat');
 var playerWizardCoatInput = playerWizardAppearance.querySelector('input[name="coat-color"]');
@@ -140,6 +141,18 @@ var pickRandomIndex = function (array) {
   return Math.floor(Math.random() * array.length);
 };
 
+var changeFormAction = function (form, action) {
+  form.action = action;
+};
+
+var changeFormMethod = function (form, method) {
+  form.method = method;
+};
+
+var changeFormContentType = function (form, contentType) {
+  form.enctype = contentType;
+};
+
 // DOM manipulation
 var showElement = function (element) {
   element.classList.remove(HIDING_CLASS);
@@ -224,4 +237,11 @@ var setupMenuInitialize = function () {
   renderWizards(canvasSelector, characters, fragment);
 };
 
+var changeFormAttirbutes = function () {
+  changeFormAction(setupPlayerWizardForm, 'https://js.dump.academy/code-and-magick');
+  changeFormMethod(setupPlayerWizardForm, 'POST');
+  changeFormContentType(setupPlayerWizardForm, 'multipart/form-data');
+};
+
 setupMenuInitialize();
+changeFormAttirbutes();
