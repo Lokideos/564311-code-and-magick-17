@@ -13,7 +13,11 @@ var setupCloseButton = document.querySelector('.setup-close');
 var setupOpenButtonIcon = setupOpenButton.querySelector('.setup-open-icon');
 var setupUserName = setupSection.querySelector('.setup-user-name');
 var setupSubmitButton = setupSection.querySelector('.setup-submit');
-var setupSubmitForm = setupSection.querySelector('.setup-wizard-form');
+var setupPlayerWizard = setupSection.querySelector('.setup-player');
+var playerWizardCoat = setupPlayerWizard.querySelector('.wizard-coat');
+var playerWizardEyes = setupPlayerWizard.querySelector('.wizard-eyes');
+var playerWizardFireball = setupPlayerWizard.querySelector('.setup-fireball-wrap');
+var playerWizardFireballInput = playerWizardFireball.querySelector('input[name="fireball-color"]');
 
 // Selectors
 var canvasSelector = '.setup-similar-list';
@@ -34,7 +38,9 @@ var COAT_COLORS = [
   'rgb(215, 210, 55)',
   'rgb(0, 0, 0)'
 ];
+
 var EYE_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
+var FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 var HIDING_CLASS = 'hidden';
 
 // Event handler functions
@@ -90,7 +96,25 @@ var onSetupSubmitPress = function (evt) {
   }
 };
 
+var onPlayerWizardCoatClick = function () {
+  playerWizardCoat.style.fill = getNextColor(COAT_COLORS);
+};
+
+var onPlayerWizardEyesClick = function () {
+  playerWizardEyes.style.fill = getNextColor(EYE_COLORS);
+};
+
+var onPlayerWizardFireballClick = function () {
+  var color = getNextColor(FIREBALL_COLORS);
+  playerWizardFireball.style.background = color;
+  playerWizardFireballInput.value = color;
+};
+
 // Support
+var getNextColor = function (colors) {
+  return colors[pickRandomIndex(colors)];
+};
+
 var shuffle = function (array) {
   var changedArray = array;
 
@@ -182,6 +206,9 @@ setupOpenButtonIcon.addEventListener('keydown', onSetupEnterPress);
 setupCloseButton.addEventListener('keydown', onSetupCloseEnterPress);
 setupSubmitButton.addEventListener('click', onSetupSubmitClick);
 setupSubmitButton.addEventListener('keypress', onSetupSubmitPress);
+playerWizardCoat.addEventListener('click', onPlayerWizardCoatClick);
+playerWizardEyes.addEventListener('click', onPlayerWizardEyesClick);
+playerWizardFireball.addEventListener('click', onPlayerWizardFireballClick);
 
 // Runtime
 var setupMenuInitialize = function () {
