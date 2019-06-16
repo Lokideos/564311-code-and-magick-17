@@ -1,14 +1,26 @@
 'use strict';
 
 // Initialization
+// Keycodes
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
+
+// Selected DOM elements
 var setupSection = document.querySelector('.setup');
 var similarWizardsSection = document.querySelector('.setup-similar');
+var setupOpenButton = document.querySelector('.setup-open');
+var setupCloseButton = document.querySelector('.setup-close');
+var setupOpenButtonIcon = setupOpenButton.querySelector('.setup-open-icon');
+
+// Selectors
 var canvasSelector = '.setup-similar-list';
 var templateSelector = '#similar-wizard-template';
 var templateFragmentSelector = '.setup-similar-item';
 var wizardNameSelector = '.setup-similar-label';
 var wizardCoatSelector = '.wizard-coat';
 var wizardEyesSelector = '.wizard-eyes';
+
+// Mock data
 var FIRST_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
 var LAST_NAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
 var COAT_COLORS = [
@@ -21,8 +33,25 @@ var COAT_COLORS = [
 ];
 var EYE_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 var HIDING_CLASS = 'hidden';
-var setupOpenButton = document.querySelector('.setup-open');
-var setupCloseButton = document.querySelector('.setup-close');
+
+// Event handler functions
+var onSetupEscPress = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    hideElement(setupSection);
+    hideElement(similarWizardsSection);
+
+    document.removeEventListener('keydown', onSetupEscPress);
+  }
+};
+
+var onSetupEnterPress = function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    showElement(setupSection);
+    showElement(similarWizardsSection);
+
+    document.addEventListener('keydown', onSetupEscPress);
+  }
+};
 
 // Support
 var shuffle = function (array) {
@@ -113,12 +142,18 @@ var generateCharacterCard = function (characterData, template, templateFragment,
 setupOpenButton.addEventListener('click', function () {
   showElement(setupSection);
   showElement(similarWizardsSection);
+
+  document.addEventListener('keydown', onSetupEscPress);
 });
 
 setupCloseButton.addEventListener('click', function () {
   hideElement(setupSection);
   hideElement(similarWizardsSection);
+
+  document.removeEventListener('keydown', onSetupEscPress);
 });
+
+setupOpenButtonIcon.addEventListener('keydown', onSetupEnterPress);
 
 // Runtime
 var setupMenuInitialize = function () {
