@@ -42,7 +42,6 @@ var COAT_COLORS = [
   'rgb(215, 210, 55)',
   'rgb(0, 0, 0)'
 ];
-
 var EYE_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 var FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 var HIDING_CLASS = 'hidden';
@@ -219,22 +218,23 @@ var generateCharacterCard = function (characterData, template, templateFragment,
   return card;
 };
 
-// Event handlers
-setupOpenButton.addEventListener('click', onSetupIconClick);
-setupCloseButton.addEventListener('click', onSetupCloseClick);
-setupOpenButtonIcon.addEventListener('keydown', onSetupEnterPress);
-setupCloseButton.addEventListener('keydown', onSetupCloseEnterPress);
-setupSubmitButton.addEventListener('click', onSetupSubmitClick);
-setupSubmitButton.addEventListener('keypress', onSetupSubmitPress);
-playerWizardCoat.addEventListener('click', onPlayerWizardCoatClick);
-playerWizardEyes.addEventListener('click', onPlayerWizardEyesClick);
-playerWizardFireball.addEventListener('click', onPlayerWizardFireballClick);
-
 // Runtime
 var setupMenuInitialize = function () {
   var characters = generateCharactersArray(4);
   var fragment = document.createDocumentFragment();
   renderWizards(canvasSelector, characters, fragment);
+};
+
+var applyEventHandlers = function () {
+  setupOpenButton.addEventListener('click', onSetupIconClick);
+  setupCloseButton.addEventListener('click', onSetupCloseClick);
+  setupOpenButtonIcon.addEventListener('keydown', onSetupEnterPress);
+  setupCloseButton.addEventListener('keydown', onSetupCloseEnterPress);
+  setupSubmitButton.addEventListener('click', onSetupSubmitClick);
+  setupSubmitButton.addEventListener('keypress', onSetupSubmitPress);
+  playerWizardCoat.addEventListener('click', onPlayerWizardCoatClick);
+  playerWizardEyes.addEventListener('click', onPlayerWizardEyesClick);
+  playerWizardFireball.addEventListener('click', onPlayerWizardFireballClick);
 };
 
 var changeFormAttirbutes = function () {
@@ -244,4 +244,5 @@ var changeFormAttirbutes = function () {
 };
 
 setupMenuInitialize();
+applyEventHandlers();
 changeFormAttirbutes();
