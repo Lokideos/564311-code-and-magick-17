@@ -12,6 +12,8 @@ var setupOpenButton = document.querySelector('.setup-open');
 var setupCloseButton = document.querySelector('.setup-close');
 var setupOpenButtonIcon = setupOpenButton.querySelector('.setup-open-icon');
 var setupUserName = setupSection.querySelector('.setup-user-name');
+var setupSubmitButton = setupSection.querySelector('.setup-submit');
+var setupSubmitForm = setupSection.querySelector('.setup-wizard-form');
 
 // Selectors
 var canvasSelector = '.setup-similar-list';
@@ -75,6 +77,16 @@ var onSetupCloseEnterPress = function (evt) {
     hideElement(similarWizardsSection);
 
     document.removeEventListener('keydown', onSetupEscPress);
+  }
+};
+
+var onSetupSubmitClick = function () {
+  setupSubmitForm.submit();
+};
+
+var onSetupSubmitPress = function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    setupSubmitForm.submit();
   }
 };
 
@@ -168,6 +180,8 @@ setupOpenButton.addEventListener('click', onSetupIconClick);
 setupCloseButton.addEventListener('click', onSetupCloseClick);
 setupOpenButtonIcon.addEventListener('keydown', onSetupEnterPress);
 setupCloseButton.addEventListener('keydown', onSetupCloseEnterPress);
+setupSubmitButton.addEventListener('click', onSetupSubmitClick);
+setupSubmitButton.addEventListener('keypress', onSetupSubmitPress);
 
 // Runtime
 var setupMenuInitialize = function () {
