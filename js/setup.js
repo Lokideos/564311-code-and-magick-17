@@ -11,6 +11,7 @@ var similarWizardsSection = document.querySelector('.setup-similar');
 var setupOpenButton = document.querySelector('.setup-open');
 var setupCloseButton = document.querySelector('.setup-close');
 var setupOpenButtonIcon = setupOpenButton.querySelector('.setup-open-icon');
+var setupUserName = setupSection.querySelector('.setup-user-name');
 
 // Selectors
 var canvasSelector = '.setup-similar-list';
@@ -36,7 +37,7 @@ var HIDING_CLASS = 'hidden';
 
 // Event handler functions
 var onSetupEscPress = function (evt) {
-  if (evt.keyCode === ESC_KEYCODE) {
+  if (evt.keyCode === ESC_KEYCODE && document.activeElement !== setupUserName) {
     hideElement(setupSection);
     hideElement(similarWizardsSection);
 
