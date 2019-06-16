@@ -12,9 +12,7 @@ var setupOpenButton = document.querySelector('.setup-open');
 var setupCloseButton = document.querySelector('.setup-close');
 var setupOpenButtonIcon = setupOpenButton.querySelector('.setup-open-icon');
 var setupUserName = setupSection.querySelector('.setup-user-name');
-var setupSubmitButton = setupSection.querySelector('.setup-submit');
 var setupPlayerWizard = setupSection.querySelector('.setup-player');
-var setupPlayerWizardForm = setupSection.querySelector('.setup-wizard-form');
 var playerWizardAppearance = setupSection.querySelector('.setup-wizard-appearance');
 var playerWizardCoat = playerWizardAppearance.querySelector('.wizard-coat');
 var playerWizardCoatInput = playerWizardAppearance.querySelector('input[name="coat-color"]');
@@ -89,16 +87,6 @@ var onSetupCloseEnterPress = function (evt) {
   }
 };
 
-var onSetupSubmitClick = function () {
-  setupSubmitButton.submit();
-};
-
-var onSetupSubmitPress = function (evt) {
-  if (evt.keyCode === ENTER_KEYCODE) {
-    setupSubmitButton.submit();
-  }
-};
-
 var onPlayerWizardCoatClick = function () {
   var color = getNextColor(COAT_COLORS);
   playerWizardCoat.style.fill = color;
@@ -139,18 +127,6 @@ var shuffle = function (array) {
 
 var pickRandomIndex = function (array) {
   return Math.floor(Math.random() * array.length);
-};
-
-var changeFormAction = function (form, action) {
-  form.action = action;
-};
-
-var changeFormMethod = function (form, method) {
-  form.method = method;
-};
-
-var changeFormContentType = function (form, contentType) {
-  form.enctype = contentType;
 };
 
 // DOM manipulation
@@ -231,8 +207,6 @@ var applyEventHandlers = function () {
   setupCloseButton.addEventListener('click', onSetupCloseClick);
   setupOpenButtonIcon.addEventListener('keydown', onSetupEnterPress);
   setupCloseButton.addEventListener('keydown', onSetupCloseEnterPress);
-  setupSubmitButton.addEventListener('click', onSetupSubmitClick);
-  setupSubmitButton.addEventListener('keypress', onSetupSubmitPress);
   applyChooseColorHandlers();
 };
 
@@ -242,12 +216,5 @@ var applyChooseColorHandlers = function () {
   playerWizardFireball.addEventListener('click', onPlayerWizardFireballClick);
 };
 
-var changeFormAttirbutes = function () {
-  changeFormAction(setupPlayerWizardForm, 'https://js.dump.academy/code-and-magick');
-  changeFormMethod(setupPlayerWizardForm, 'POST');
-  changeFormContentType(setupPlayerWizardForm, 'multipart/form-data');
-};
-
 setupMenuInitialize();
 applyEventHandlers();
-changeFormAttirbutes();
