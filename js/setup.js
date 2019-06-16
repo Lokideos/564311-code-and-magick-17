@@ -119,7 +119,8 @@ var onPlayerWizardFireballClick = function () {
 
 // Support
 var getNextColor = function (colors) {
-  return colors[pickRandomIndex(colors)];
+  colors.push(colors.shift());
+  return colors[0];
 };
 
 var shuffle = function (array) {
@@ -232,6 +233,10 @@ var applyEventHandlers = function () {
   setupCloseButton.addEventListener('keydown', onSetupCloseEnterPress);
   setupSubmitButton.addEventListener('click', onSetupSubmitClick);
   setupSubmitButton.addEventListener('keypress', onSetupSubmitPress);
+  applyChooseColorHandlers();
+};
+
+var applyChooseColorHandlers = function () {
   playerWizardCoat.addEventListener('click', onPlayerWizardCoatClick);
   playerWizardEyes.addEventListener('click', onPlayerWizardEyesClick);
   playerWizardFireball.addEventListener('click', onPlayerWizardFireballClick);
