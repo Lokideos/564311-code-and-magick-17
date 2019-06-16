@@ -14,8 +14,11 @@ var setupOpenButtonIcon = setupOpenButton.querySelector('.setup-open-icon');
 var setupUserName = setupSection.querySelector('.setup-user-name');
 var setupSubmitButton = setupSection.querySelector('.setup-submit');
 var setupPlayerWizard = setupSection.querySelector('.setup-player');
-var playerWizardCoat = setupPlayerWizard.querySelector('.wizard-coat');
-var playerWizardEyes = setupPlayerWizard.querySelector('.wizard-eyes');
+var playerWizardAppearance = setupSection.querySelector('.setup-wizard-appearance');
+var playerWizardCoat = playerWizardAppearance.querySelector('.wizard-coat');
+var playerWizardCoatInput = playerWizardAppearance.querySelector('input[name="coat-color"]');
+var playerWizardEyes = playerWizardAppearance.querySelector('.wizard-eyes');
+var playerWizardEyesInput = playerWizardAppearance.querySelector('input[name="eyes-color"]');
 var playerWizardFireball = setupPlayerWizard.querySelector('.setup-fireball-wrap');
 var playerWizardFireballInput = playerWizardFireball.querySelector('input[name="fireball-color"]');
 
@@ -97,11 +100,15 @@ var onSetupSubmitPress = function (evt) {
 };
 
 var onPlayerWizardCoatClick = function () {
-  playerWizardCoat.style.fill = getNextColor(COAT_COLORS);
+  var color = getNextColor(COAT_COLORS);
+  playerWizardCoat.style.fill = color;
+  playerWizardCoatInput.value = color;
 };
 
 var onPlayerWizardEyesClick = function () {
-  playerWizardEyes.style.fill = getNextColor(EYE_COLORS);
+  var color = getNextColor(EYE_COLORS);
+  playerWizardEyes.style.fill = color;
+  playerWizardEyesInput.value = color;
 };
 
 var onPlayerWizardFireballClick = function () {
