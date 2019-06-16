@@ -21,6 +21,8 @@ var COAT_COLORS = [
 ];
 var EYE_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 var HIDING_CLASS = 'hidden';
+var setupOpenButton = document.querySelector('.setup-open');
+var setupCloseButton = document.querySelector('.setup-close');
 
 // Support
 var shuffle = function (array) {
@@ -44,6 +46,10 @@ var pickRandomIndex = function (array) {
 // DOM manipulation
 var showElement = function (element) {
   element.classList.remove(HIDING_CLASS);
+};
+
+var hideElement = function (element) {
+  element.classList.add(HIDING_CLASS);
 };
 
 var getTemplate = function (templateId, fragmentSelector) {
@@ -103,13 +109,22 @@ var generateCharacterCard = function (characterData, template, templateFragment,
   return card;
 };
 
+// Event handlers
+setupOpenButton.addEventListener('click', function () {
+  showElement(setupSection);
+  showElement(similarWizardsSection);
+});
+
+setupCloseButton.addEventListener('click', function () {
+  hideElement(setupSection);
+  hideElement(similarWizardsSection);
+});
+
 // Runtime
 var setupMenuInitialize = function () {
   var characters = generateCharactersArray(4);
   var fragment = document.createDocumentFragment();
   renderWizards(canvasSelector, characters, fragment);
-  showElement(setupSection);
-  showElement(similarWizardsSection);
 };
 
 setupMenuInitialize();
