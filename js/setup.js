@@ -56,6 +56,7 @@ var onSetupIconClick = function () {
 var onSetupCloseClick = function () {
   hideElement(setupSection);
   hideElement(similarWizardsSection);
+  resetSetupPosition();
 
   document.removeEventListener('keydown', onSetupEscPress);
 };
@@ -64,6 +65,7 @@ var onSetupEscPress = function (evt) {
   if (evt.keyCode === ESC_KEYCODE && document.activeElement !== setupUserName) {
     hideElement(setupSection);
     hideElement(similarWizardsSection);
+    resetSetupPosition();
 
     document.removeEventListener('keydown', onSetupEscPress);
   }
@@ -82,6 +84,7 @@ var onSetupCloseEnterPress = function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
     hideElement(setupSection);
     hideElement(similarWizardsSection);
+    resetSetupPosition();
 
     document.removeEventListener('keydown', onSetupEscPress);
   }
@@ -157,6 +160,11 @@ var renderWizards = function (canvasPlacementSelector, charactersData, fragment)
     ));
   });
   canvas.appendChild(fragment);
+};
+
+var resetSetupPosition = function () {
+  setupSection.style.left = '';
+  setupSection.style.top = '';
 };
 
 // Generators
