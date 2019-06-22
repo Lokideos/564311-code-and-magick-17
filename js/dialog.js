@@ -1,9 +1,11 @@
 'use strict';
 
 (function () {
+  // Initialize
   var setup = document.querySelector('.setup');
   var setupHandle = document.querySelector('.upload');
 
+  // Event handler functions
   var onSetupHandleMouseDown = function (evt) {
     var startCoords = {
       x: evt.clientX,
@@ -48,6 +50,7 @@
     document.addEventListener('mouseup', onMouseUp);
   };
 
+  // Runtime
   var applyEventHandlers = function () {
     setupHandle.addEventListener('mousedown', onSetupHandleMouseDown);
   };

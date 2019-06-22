@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  // Initialization
+  // Initialize
   var setupSection = document.querySelector('.setup');
   var similarWizardsSection = document.querySelector('.setup-similar');
   var setupCloseButton = document.querySelector('.setup-close');
@@ -70,6 +70,7 @@
     }
   };
 
+  // Runtime
   var applyEventHandlers = function () {
     setupOpenButton.addEventListener('click', onSetupIconClick);
     setupCloseButton.addEventListener('click', onSetupCloseClick);

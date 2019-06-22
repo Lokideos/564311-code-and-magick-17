@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  // Initialization
+  // Initialize
   // Selected DOM elements
   var setupSection = document.querySelector('.setup');
   var setupPlayerWizard = setupSection.querySelector('.setup-player');
@@ -25,6 +25,12 @@
   var EYE_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
   var FIREBALL_COLORS = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 
+  // Support
+  var getNextColor = function (colors) {
+    colors.push(colors.shift());
+    return colors[0];
+  };
+
   // Event handler functions
   var onPlayerWizardCoatClick = function () {
     var color = getNextColor(COAT_COLORS);
@@ -46,10 +52,6 @@
 
   // Runtime
   var applyEventHandlers = function () {
-    applyChooseColorHandlers();
-  };
-
-  var applyChooseColorHandlers = function () {
     playerWizardCoat.addEventListener('click', onPlayerWizardCoatClick);
     playerWizardEyes.addEventListener('click', onPlayerWizardEyesClick);
     playerWizardFireball.addEventListener('click', onPlayerWizardFireballClick);

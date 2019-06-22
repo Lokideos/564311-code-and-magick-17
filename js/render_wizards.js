@@ -1,6 +1,7 @@
 'use strict';
 
 (function () {
+  // Initialize
   // Selectors
   var canvasSelector = '.setup-similar-list';
   var templateSelector = '#similar-wizard-template';
@@ -22,12 +23,32 @@
   ];
   var EYE_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 
+  // Support
+  var shuffle = function (array) {
+    var changedArray = array;
+
+    for (var i = 0; i < changedArray.length; i++) {
+      var randomIndex = Math.floor((Math.random() * i));
+      var element = changedArray[randomIndex];
+
+      changedArray[randomIndex] = changedArray[i];
+      changedArray[i] = element;
+    }
+
+    return changedArray;
+  };
+
+  var pickRandomIndex = function (array) {
+    return Math.floor(Math.random() * array.length);
+  };
+
   var getTemplate = function (templateId, fragmentSelector) {
     return document.querySelector(templateId)
       .content
       .querySelector(fragmentSelector);
   };
 
+  // Generators
   var generateFullNames = function (firstNames, lastNames) {
     var shuffledLastNames = shuffle(lastNames);
 
@@ -78,6 +99,7 @@
     canvas.appendChild(fragment);
   };
 
+  // Runtime
   var characters = generateCharactersArray(4);
   var fragment = document.createDocumentFragment();
   renderWizards(canvasSelector, characters, fragment);
