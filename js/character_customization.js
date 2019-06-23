@@ -4,6 +4,7 @@
   // Initialize
   // Selected DOM elements
   var setupSection = document.querySelector('.setup');
+  var form = setupSection.querySelector('.setup-wizard-form');
   var setupPlayerWizard = setupSection.querySelector('.setup-player');
   var playerWizardAppearance = setupSection.querySelector('.setup-wizard-appearance');
   var playerWizardCoat = playerWizardAppearance.querySelector('.wizard-coat');
@@ -50,6 +51,11 @@
     playerWizardFireballInput.value = color;
   };
 
+  // DOM manipulation
+  var hideElement = function (element) {
+    element.classList.add(window.supportData.HIDING_CLASS);
+  };
+
   // Runtime
   var applyEventHandlers = function () {
     playerWizardCoat.addEventListener('click', onPlayerWizardCoatClick);
@@ -58,4 +64,11 @@
   };
 
   applyEventHandlers();
+
+  form.addEventListener('submit', function (evt) {
+    evt.preventDefault();
+    window.backend.save(new FormData(form), function () {
+      hideElement(setupSection);
+    });
+  });
 })();
