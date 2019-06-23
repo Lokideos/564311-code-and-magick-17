@@ -21,14 +21,20 @@
 
       xhr.send();
     },
-    save: function (data, onLoad) {
+    save: function (data, onLoad, onError) {
       var xhr = new XMLHttpRequest();
       xhr.responseType = 'json';
 
       xhr.open('POST', CREATE_WIZARD_RESOURCE);
 
       xhr.addEventListener('load', function () {
-        onLoad(xhr.response);
+        switch (xhr.status) {
+          case 200:
+            return onLoad(xhr.response);
+          default:
+            return onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+        }
+
       });
 
       xhr.send(data);
