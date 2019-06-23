@@ -24,24 +24,6 @@
   var EYE_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
 
   // Support
-  var shuffle = function (array) {
-    var changedArray = array;
-
-    for (var i = 0; i < changedArray.length; i++) {
-      var randomIndex = Math.floor((Math.random() * i));
-      var element = changedArray[randomIndex];
-
-      changedArray[randomIndex] = changedArray[i];
-      changedArray[i] = element;
-    }
-
-    return changedArray;
-  };
-
-  var pickRandomIndex = function (array) {
-    return Math.floor(Math.random() * array.length);
-  };
-
   var getTemplate = function (templateId, fragmentSelector) {
     return document.querySelector(templateId)
       .content
@@ -50,18 +32,18 @@
 
   // Generators
   var generateFullNames = function (firstNames, lastNames) {
-    var shuffledLastNames = shuffle(lastNames);
+    var shuffledLastNames = window.supportFunctions.shuffle(lastNames);
 
-    return shuffle(firstNames).map(function (firstName) {
+    return window.supportFunctions.shuffle(firstNames).map(function (firstName) {
       return firstName + ' ' + shuffledLastNames.pop();
     });
   };
 
   var generateCharacter = function (names, coatColors, eyeColors) {
     return {
-      name: shuffle(names).pop(),
-      coatColor: coatColors[pickRandomIndex(coatColors)],
-      eyesColor: eyeColors[pickRandomIndex(eyeColors)]
+      name: window.supportFunctions.shuffle(names).pop(),
+      coatColor: coatColors[window.supportFunctions.pickRandomIndex(coatColors)],
+      eyesColor: eyeColors[window.supportFunctions.pickRandomIndex(eyeColors)]
     };
   };
 

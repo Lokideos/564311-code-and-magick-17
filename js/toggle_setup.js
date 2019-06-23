@@ -8,15 +8,14 @@
   var setupOpenButton = document.querySelector('.setup-open');
   var setupOpenButtonIcon = setupOpenButton.querySelector('.setup-open-icon');
   var setupUserName = setupSection.querySelector('.setup-user-name');
-  var HIDING_CLASS = 'hidden';
 
   // DOM manipulation
   var showElement = function (element) {
-    element.classList.remove(HIDING_CLASS);
+    element.classList.remove(window.supportData.HIDING_CLASS);
   };
 
   var hideElement = function (element) {
-    element.classList.add(HIDING_CLASS);
+    element.classList.add(window.supportData.HIDING_CLASS);
   };
 
   var resetSetupPosition = function () {
@@ -42,7 +41,7 @@
   };
 
   var onSetupEscPress = function (evt) {
-    if (evt.keyCode === window.support.ESC_KEYCODE && document.activeElement !== setupUserName) {
+    if (evt.keyCode === window.supportData.ESC_KEYCODE && document.activeElement !== setupUserName) {
       hideElement(setupSection);
       hideElement(similarWizardsSection);
       resetSetupPosition();
@@ -52,7 +51,7 @@
   };
 
   var onSetupEnterPress = function (evt) {
-    if (evt.keyCode === window.support.ENTER_KEYCODE) {
+    if (evt.keyCode === window.supportData.ENTER_KEYCODE) {
       showElement(setupSection);
       showElement(similarWizardsSection);
 
@@ -61,7 +60,7 @@
   };
 
   var onSetupCloseEnterPress = function (evt) {
-    if (evt.keyCode === window.support.ENTER_KEYCODE) {
+    if (evt.keyCode === window.supportData.ENTER_KEYCODE) {
       hideElement(setupSection);
       hideElement(similarWizardsSection);
       resetSetupPosition();
