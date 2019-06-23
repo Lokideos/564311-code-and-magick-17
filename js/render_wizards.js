@@ -10,19 +10,6 @@
   var wizardCoatSelector = '.wizard-coat';
   var wizardEyesSelector = '.wizard-eyes';
 
-  // Mock data
-  var FIRST_NAMES = ['Иван', 'Хуан Себастьян', 'Мария', 'Кристоф', 'Виктор', 'Юлия', 'Люпита', 'Вашингтон'];
-  var LAST_NAMES = ['да Марья', 'Верон', 'Мирабелла', 'Вальц', 'Онопко', 'Топольницкая', 'Нионго', 'Ирвинг'];
-  var COAT_COLORS = [
-    'rgb(101, 137, 164)',
-    'rgb(241, 43, 107)',
-    'rgb(146, 100, 161)',
-    'rgb(56, 159, 117)',
-    'rgb(215, 210, 55)',
-    'rgb(0, 0, 0)'
-  ];
-  var EYE_COLORS = ['black', 'red', 'blue', 'yellow', 'green'];
-
   // Support
   var getTemplate = function (templateId, fragmentSelector) {
     return document.querySelector(templateId)
@@ -31,32 +18,6 @@
   };
 
   // Generators
-  var generateFullNames = function (firstNames, lastNames) {
-    var shuffledLastNames = window.supportFunctions.shuffle(lastNames);
-
-    return window.supportFunctions.shuffle(firstNames).map(function (firstName) {
-      return firstName + ' ' + shuffledLastNames.pop();
-    });
-  };
-
-  var generateCharacter = function (names, coatColors, eyeColors) {
-    return {
-      name: window.supportFunctions.shuffle(names).pop(),
-      coatColor: coatColors[window.supportFunctions.pickRandomIndex(coatColors)],
-      eyesColor: eyeColors[window.supportFunctions.pickRandomIndex(eyeColors)]
-    };
-  };
-
-  var generateCharactersArray = function (length) {
-    var characters = [];
-    var fullNames = generateFullNames(FIRST_NAMES, LAST_NAMES);
-    for (var i = 0; i < length; i++) {
-      characters.push(generateCharacter(fullNames, COAT_COLORS, EYE_COLORS));
-    }
-
-    return characters;
-  };
-
   var generateCharacterCard = function (characterData, template, templateFragment, name, coat, eyes) {
     var card = getTemplate(template, templateFragment).cloneNode(true);
     card.querySelector(name).textContent = characterData.name;
@@ -66,11 +27,30 @@
     return card;
   };
 
-  var renderWizards = function (canvasPlacementSelector, charactersData, fragment) {
+  var generateCharacter = function (name, coatColor, eyeColor) {
+    return {
+      name: name,
+      coatColor: coatColor,
+      eyesColor: eyeColor
+    };
+  };
+
+  var generateCharactersArray = function (wizards) {
+    var characters = [];
+    wizards.forEach(function (wizard) {
+      characters.push(generateCharacter(wizard.name, wizard.colorCoat, wizard.colorEyes));
+    });
+
+    return window.supportFunctions.shuffle(characters).slice(0, 4);
+  };
+
+  var renderWizards = function (canvasPlacementSelector, characters, fragment) {
     var canvas = document.querySelector(canvasPlacementSelector);
-    charactersData.forEach(function (characterData) {
+
+    window.backend.load(generateCharactersArray);
+    characters.forEach(function (character) {
       fragment.appendChild(generateCharacterCard(
-          characterData,
+          character,
           templateSelector,
           templateFragmentSelector,
           wizardNameSelector,
@@ -82,7 +62,9 @@
   };
 
   // Runtime
-  var characters = generateCharactersArray(4);
-  var fragment = document.createDocumentFragment();
-  renderWizards(canvasSelector, characters, fragment);
+  window.backend.load(function (wizards) {
+    var characters = generateCharactersArray(wizards);
+    var fragment = document.createDocumentFragment();
+    renderWizards(canvasSelector, characters, fragment);
+  });
 })();
