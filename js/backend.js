@@ -4,14 +4,18 @@
   var URL = 'https://js.dump.academy/code-and-magick/data';
 
   window.backend = {
-    load: function (onLoad) {
+    load: function (onLoad, onError) {
       var xhr = new XMLHttpRequest();
       xhr.responseType = 'json';
 
       xhr.open('GET', URL);
 
       xhr.addEventListener('load', function () {
-        onLoad(xhr.response);
+        if (xhr.status === 200) {
+          onLoad(xhr.response);
+        } else {
+          onError('Статус ответа: ' + xhr.status + ' ' + xhr.statusText);
+        }
       });
 
       xhr.send();
