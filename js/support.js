@@ -27,6 +27,12 @@
     },
     pickRandomIndex: function (array) {
       return Math.floor(Math.random() * array.length);
+    },
+    showElement: function (element) {
+      element.classList.remove(HIDING_CLASS);
+    },
+    hideElement: function (element) {
+      element.classList.add(HIDING_CLASS);
     }
   };
 })();

@@ -51,11 +51,6 @@
     playerWizardFireballInput.value = color;
   };
 
-  // DOM manipulation
-  var hideElement = function (element) {
-    element.classList.add(window.supportData.HIDING_CLASS);
-  };
-
   // Runtime
   var applyEventHandlers = function () {
     playerWizardCoat.addEventListener('click', onPlayerWizardCoatClick);
@@ -68,7 +63,7 @@
   form.addEventListener('submit', function (evt) {
     evt.preventDefault();
     window.backend.save(new FormData(form), function () {
-      hideElement(setupSection);
+      window.supportFunctions.hideElement(setupSection);
     });
   });
 })();
