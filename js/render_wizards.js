@@ -21,7 +21,7 @@
   var onSuccessHandler = function (wizards) {
     var characters = generateCharactersArray(wizards);
     var fragment = document.createDocumentFragment();
-    renderWizards(canvasSelector, characters, fragment);
+    window.rendering.renderWizards(canvasSelector, characters, fragment);
   };
 
   // Generators
@@ -51,19 +51,21 @@
     return window.supportFunctions.shuffle(characters).slice(0, 4);
   };
 
-  var renderWizards = function (canvasPlacementSelector, characters, fragment) {
-    var canvas = document.querySelector(canvasPlacementSelector);
-    characters.forEach(function (character) {
-      fragment.appendChild(generateCharacterCard(
-          character,
-          templateSelector,
-          templateFragmentSelector,
-          wizardNameSelector,
-          wizardCoatSelector,
-          wizardEyesSelector
-      ));
-    });
-    canvas.appendChild(fragment);
+  window.rendering = {
+    renderWizards: function (canvasPlacementSelector, characters, fragment) {
+      var canvas = document.querySelector(canvasPlacementSelector);
+      characters.forEach(function (character) {
+        fragment.appendChild(generateCharacterCard(
+            character,
+            templateSelector,
+            templateFragmentSelector,
+            wizardNameSelector,
+            wizardCoatSelector,
+            wizardEyesSelector
+        ));
+      });
+      canvas.appendChild(fragment);
+    }
   };
 
   // Runtime
