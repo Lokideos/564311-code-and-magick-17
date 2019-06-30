@@ -17,6 +17,34 @@
       .querySelector(fragmentSelector);
   };
 
+  var rateWizards = function (wizards) {
+    var playerCoatColor = window.supportFunctions.getPlayerColors().coatColor;
+    var playerEyesColor = window.supportFunctions.getPlayerColors().eyesColor;
+    return wizards.map(function (wizard) {
+      if (playerCoatColor === wizard.coatColor) {
+        wizard.searchRating += 2;
+      }
+      if (playerEyesColor === wizard.eyesColor) {
+        wizard.searchRating += 1;
+      }
+      return wizard;
+    });
+  };
+
+  var filterWizards = function (wizards) {
+    return rateWizards(wizards).sort(function (a, b) {
+      var keyA = a.searchRating;
+      var keyB = b.searchRating;
+      if (keyA < keyB) {
+        return 1;
+      }
+      if (keyA > keyB) {
+        return -1;
+      }
+      return 0;
+    });
+  };
+
   // Event handler functions
   var onSuccessHandler = function (wizards) {
     var characters = generateCharactersArray(wizards);
@@ -38,7 +66,8 @@
     return {
       name: name,
       coatColor: coatColor,
-      eyesColor: eyeColor
+      eyesColor: eyeColor,
+      searchRating: 0
     };
   };
 
@@ -48,7 +77,7 @@
       characters.push(generateCharacter(wizard.name, wizard.colorCoat, wizard.colorEyes));
     });
 
-    return window.supportFunctions.shuffle(characters).slice(0, 4);
+    return filterWizards(characters).slice(0, 4);
   };
 
   window.rendering = {

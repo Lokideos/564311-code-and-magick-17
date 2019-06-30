@@ -32,6 +32,13 @@
     return colors[0];
   };
 
+  window.supportFunctions.getPlayerColors = function () {
+    return {
+      coatColor: playerWizardCoat.style.fill,
+      eyesColor: playerWizardEyes.style.fill || 'black'
+    };
+  };
+
   // Event handler functions
   var onPlayerWizardCoatClick = function () {
     var color = getNextColor(COAT_COLORS);
