@@ -33,13 +33,13 @@
   };
 
   var filterWizards = function (wizards) {
-    return rateWizards(wizards).sort(function (a, b) {
-      var keyA = a.searchRating;
-      var keyB = b.searchRating;
-      if (keyA < keyB) {
+    return rateWizards(wizards).sort(function (leftWizard, rightWizard) {
+      var leftRating = leftWizard.searchRating;
+      var rightRating = rightWizard.searchRating;
+      if (leftRating < rightRating) {
         return 1;
       }
-      if (keyA > keyB) {
+      if (leftRating > rightRating) {
         return -1;
       }
       return 0;
