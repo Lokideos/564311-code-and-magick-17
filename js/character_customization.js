@@ -44,21 +44,20 @@
     var color = getNextColor(COAT_COLORS);
     playerWizardCoat.style.fill = color;
     playerWizardCoatInput.value = color;
-    // add function to select new similar wizards
+    window.rendering.reRenderWizards();
   };
 
   var onPlayerWizardEyesClick = function () {
     var color = getNextColor(EYE_COLORS);
     playerWizardEyes.style.fill = color;
     playerWizardEyesInput.value = color;
-    // add function to select new similar wizards
+    window.rendering.reRenderWizards();
   };
 
   var onPlayerWizardFireballClick = function () {
     var color = getNextColor(FIREBALL_COLORS);
     playerWizardFireball.style.background = color;
     playerWizardFireballInput.value = color;
-    // add function to select new similar wizards
   };
 
   var onSuccessHandler = function () {

@@ -9,6 +9,7 @@
   var wizardNameSelector = '.setup-similar-label';
   var wizardCoatSelector = '.wizard-coat';
   var wizardEyesSelector = '.wizard-eyes';
+  var wizardsCollection = [];
 
   // Support
   var getTemplate = function (templateId, fragmentSelector) {
@@ -47,9 +48,9 @@
 
   // Event handler functions
   var onSuccessHandler = function (wizards) {
-    var characters = generateCharactersArray(wizards);
+    wizardsCollection = generateCharactersArray(wizards);
     var fragment = document.createDocumentFragment();
-    window.rendering.renderWizards(canvasSelector, characters, fragment);
+    renderWizards(canvasSelector, wizardsCollection.slice(0, 4), fragment);
   };
 
   // Generators
@@ -77,23 +78,41 @@
       characters.push(generateCharacter(wizard.name, wizard.colorCoat, wizard.colorEyes));
     });
 
-    return filterWizards(characters).slice(0, 4);
+    return filterWizards(characters);
   };
 
+  var renderWizards = function (canvasPlacementSelector, characters, fragment) {
+    var canvas = document.querySelector(canvasPlacementSelector);
+    characters.forEach(function (character) {
+      fragment.appendChild(generateCharacterCard(
+          character,
+          templateSelector,
+          templateFragmentSelector,
+          wizardNameSelector,
+          wizardCoatSelector,
+          wizardEyesSelector
+      ));
+    });
+    canvas.appendChild(fragment);
+  };
+
+  var nulifyRating = function (wizards) {
+    wizards.forEach(function (wizard) {
+      wizard.searchRating = 0;
+    });
+  };
   window.rendering = {
-    renderWizards: function (canvasPlacementSelector, characters, fragment) {
-      var canvas = document.querySelector(canvasPlacementSelector);
-      characters.forEach(function (character) {
-        fragment.appendChild(generateCharacterCard(
-            character,
-            templateSelector,
-            templateFragmentSelector,
-            wizardNameSelector,
-            wizardCoatSelector,
-            wizardEyesSelector
-        ));
+    reRenderWizards: function () {
+      nulifyRating(wizardsCollection);
+
+      var oldWizards = document.querySelector('.setup-similar-list').querySelectorAll('.setup-similar-item');
+      var fragment = document.createDocumentFragment();
+
+      renderWizards(canvasSelector, filterWizards(wizardsCollection).slice(0, 4), fragment);
+
+      oldWizards.forEach(function (wizard) {
+        wizard.remove();
       });
-      canvas.appendChild(fragment);
     }
   };
 
