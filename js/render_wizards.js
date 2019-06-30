@@ -102,7 +102,7 @@
     });
   };
   window.rendering = {
-    reRenderWizards: function () {
+    reRenderWizards: window.debounce(function () {
       nulifyRating(wizardsCollection);
 
       var oldWizards = document.querySelector('.setup-similar-list').querySelectorAll('.setup-similar-item');
@@ -113,7 +113,7 @@
       oldWizards.forEach(function (wizard) {
         wizard.remove();
       });
-    }
+    })
   };
 
   // Runtime
