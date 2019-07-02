@@ -9,6 +9,7 @@
   var wizardNameSelector = '.setup-similar-label';
   var wizardCoatSelector = '.wizard-coat';
   var wizardEyesSelector = '.wizard-eyes';
+  var wizardsCollection = [];
 
   // Support
   var getTemplate = function (templateId, fragmentSelector) {
@@ -17,11 +18,39 @@
       .querySelector(fragmentSelector);
   };
 
+  var rateWizards = function (wizards) {
+    var playerCoatColor = window.supportFunctions.getPlayerColors().coatColor;
+    var playerEyesColor = window.supportFunctions.getPlayerColors().eyesColor;
+    return wizards.map(function (wizard) {
+      if (playerCoatColor === wizard.coatColor) {
+        wizard.searchRating += 2;
+      }
+      if (playerEyesColor === wizard.eyesColor) {
+        wizard.searchRating += 1;
+      }
+      return wizard;
+    });
+  };
+
+  var filterWizards = function (wizards) {
+    return rateWizards(wizards).sort(function (leftWizard, rightWizard) {
+      var leftRating = leftWizard.searchRating;
+      var rightRating = rightWizard.searchRating;
+      if (leftRating < rightRating) {
+        return 1;
+      }
+      if (leftRating > rightRating) {
+        return -1;
+      }
+      return 0;
+    });
+  };
+
   // Event handler functions
   var onSuccessHandler = function (wizards) {
-    var characters = generateCharactersArray(wizards);
+    wizardsCollection = generateCharactersArray(wizards);
     var fragment = document.createDocumentFragment();
-    renderWizards(canvasSelector, characters, fragment);
+    renderWizards(canvasSelector, wizardsCollection.slice(0, 4), fragment);
   };
 
   // Generators
@@ -38,7 +67,8 @@
     return {
       name: name,
       coatColor: coatColor,
-      eyesColor: eyeColor
+      eyesColor: eyeColor,
+      searchRating: 0
     };
   };
 
@@ -48,7 +78,7 @@
       characters.push(generateCharacter(wizard.name, wizard.colorCoat, wizard.colorEyes));
     });
 
-    return window.supportFunctions.shuffle(characters).slice(0, 4);
+    return filterWizards(characters);
   };
 
   var renderWizards = function (canvasPlacementSelector, characters, fragment) {
@@ -64,6 +94,26 @@
       ));
     });
     canvas.appendChild(fragment);
+  };
+
+  var nulifyRating = function (wizards) {
+    wizards.forEach(function (wizard) {
+      wizard.searchRating = 0;
+    });
+  };
+  window.rendering = {
+    reRenderWizards: window.debounce(function () {
+      nulifyRating(wizardsCollection);
+
+      var oldWizards = document.querySelector('.setup-similar-list').querySelectorAll('.setup-similar-item');
+      var fragment = document.createDocumentFragment();
+
+      renderWizards(canvasSelector, filterWizards(wizardsCollection).slice(0, 4), fragment);
+
+      oldWizards.forEach(function (wizard) {
+        wizard.remove();
+      });
+    })
   };
 
   // Runtime
