@@ -7,6 +7,7 @@
   // Selected DOM elements
   var setupSection = document.querySelector('.setup');
   var preview = setupSection.querySelector('.setup-user-pic');
+  var mainAvatarIcon = document.querySelector('.setup-open .setup-open-icon');
   var fileUploader = setupSection.querySelector('input[type=file]');
 
   fileUploader.addEventListener('change', function () {
@@ -22,6 +23,7 @@
 
       reader.addEventListener('load', function () {
         preview.src = reader.result;
+        mainAvatarIcon.src = reader.result;
       });
 
       reader.readAsDataURL(file);
