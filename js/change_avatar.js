@@ -16,11 +16,11 @@
     var file = fileUploader.files[0];
     var fileName = file.name.toLowerCase();
 
-    var matches = FILE_TYPES.some(function (extension) {
+    var hasCorrectExtension = FILE_TYPES.some(function (extension) {
       return fileName.endsWith(extension);
     });
 
-    if (matches) {
+    if (hasCorrectExtension) {
       var reader = new FileReader();
 
       reader.addEventListener('load', function () {
