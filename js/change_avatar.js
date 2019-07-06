@@ -9,6 +9,8 @@
   var preview = setupSection.querySelector('.setup-user-pic');
   var mainAvatarIcon = document.querySelector('.setup-open .setup-open-icon');
   var fileUploader = setupSection.querySelector('input[type=file]');
+  var form = setupSection.querySelector('.setup-wizard-form');
+  var avatarLink = preview.src;
 
   fileUploader.addEventListener('change', function () {
     var file = fileUploader.files[0];
@@ -22,12 +24,16 @@
       var reader = new FileReader();
 
       reader.addEventListener('load', function () {
-        preview.src = reader.result;
-        mainAvatarIcon.src = reader.result;
+        avatarLink = reader.result;
+        preview.src = avatarLink;
+
       });
 
       reader.readAsDataURL(file);
     }
   });
 
+  form.addEventListener('submit', function () {
+    mainAvatarIcon.src = avatarLink;
+  });
 })();
